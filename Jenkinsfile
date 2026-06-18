@@ -5,11 +5,11 @@ pipeline{
         jdk 'JDK21'
         maven 'M3'
     }
-    engironment {
+    environment {
         DOCKERHUB_CRED = credentials('dockerCredentials')
         AWS_CREDENTIAL_NAME = 'awsCredentials'
     }
-    Stages {
+    stages {
         stage('Git Clone') {
             steps {
                 git url: 'https://github.com/zhdl453/spring-petclinic',
