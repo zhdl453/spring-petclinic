@@ -12,8 +12,9 @@ pipeline{
     Stages {
         stage('Git Clone') {
             steps {
-                git url: 'https://github.com/zhdl453/spring-petclinic'
-                branch: 'main', credentialsId: 'gitCredentials'
+                git url: 'https://github.com/zhdl453/spring-petclinic',
+                branch: 'main',
+                credentialsId: 'gitCredentials'
             }
         }
         // //Maven으로 Build
