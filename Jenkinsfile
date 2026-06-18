@@ -16,32 +16,32 @@ pipeline{
                 branch: 'main', credentialsId: 'gitCredentials'
             }
         }
-        //Maven으로 Build
-         stage('Maven Build') {
-             steps{
+        // //Maven으로 Build
+        //  stage('Maven Build') {
+        //      steps{
                  
-             }
-         }
-        //Docker 이미지 생성
-        stage('Docker Build && Push'){
-            steps{
+        //      }
+        //  }
+        // //Docker 이미지 생성
+        // stage('Docker Build && Push'){
+        //     steps{
                 
-            }
-        }
-        stage('Upload S3'){
-            steps{
+        //     }
+        // }
+        // stage('Upload S3'){
+        //     steps{
                 
-            }
-        }
-        stage('Code Deploy'){
-            steps{
+        //     }
+        // }
+        // stage('Code Deploy'){
+        //     steps{
                 
-            }
-        }
-        stage('Docker Image Remove'){
-            steps{
+        //     }
+        // }
+        // stage('Docker Image Remove'){
+        //     steps{
                 
-            }
-        }
+        //     }
+        // }
     }
 }
