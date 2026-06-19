@@ -62,12 +62,12 @@ pipeline{
                     --application-name std05-exercise \
                     --auto-scaling-groups std05-exercise-asg \
                     --deployment-group-name std05-exercise-${BUILD_NUMBER} \
-                    --deployment-config-name CodeDeployDefault.OncAtATime \
+                    --deployment-config-name CodeDeployDefault.OneAtATime \
                     --service-role-arn arn:aws:iam::491085389788:role/std05-exercise-code-deploy-role \
                     '''
                     sh '''
                     aws deploy create-deployment --application-name std05-exercise \
-                    --deployment-config-name CodeDeployDefault.OncAtATime \
+                    --deployment-config-name CodeDeployDefault.OneAtATime \
                     --deployment-group-name std05-exercise-${BUILD_NUMBER} \
                     --s3-location bucket=std05-app-bucket, bundleType=zip, key=scripts.zip
                     '''
