@@ -35,11 +35,6 @@ pipeline{
             }
         }
         
-        // stage('Code Deploy'){
-        //     steps{
-                
-        //     }
-        // }
         stage('Docker Image Remove'){
             steps{
                 sh '''
@@ -56,6 +51,27 @@ pipeline{
                         s3Upload(file: "scripts.zip", bucket: "std05-app-bucket")
                     }
                     sh 'rm -rf scripts.zip'
+                }
+            }
+        }
+        stage('Code Deploy'){
+            steps{
+                withAWS(region: "ap-northeast-2", credentials: "${AWS_CREDENTIAL_NAME}"){
+                    sh'''
+                    aws deploy create-deployment-group \
+                    --application-name std05-exercise \
+                    --auto-scaling-groups std05-exercise-asg \
+                    --deployment-group-name std05-exercise-${BUILD_NUMBER} \
+                    --deployment-config-name CodeDeployDefault.OnceAtATime \
+                    --service-role-arn std05-exercise-code-deploy-role \
+                    '''
+                    sh '''
+                    aws deploy create-deployment --application-name std05-exercise \
+                    --deployment-config-name CodeDeployDefault.OnceAtATime \
+                    --deployment-group-name std05-exercise-${BUILD_NUMBER} \
+                    --s3-location bucket=std05-app-bucket, bundleType=zip, key=${zip_name}
+                    '''
+                    sleep(10)
                 }
             }
         }
