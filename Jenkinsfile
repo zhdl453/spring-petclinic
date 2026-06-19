@@ -34,20 +34,30 @@ pipeline{
                 '''
             }
         }
-        // stage('Upload S3'){
-        //     steps{
-                
-        //     }
-        // }
+        
         // stage('Code Deploy'){
         //     steps{
                 
         //     }
         // }
-        // stage('Docker Image Remove'){
-        //     steps{
-                
-        //     }
-        // }
+        stage('Docker Image Remove'){
+            steps{
+                sh '''
+                docker rmi -f zhdl453/spring-petclinic:latest
+                docker rmi -f zhdl453/spring-petclinic:${BUILD_NUMBER}
+                '''
+            }
+        }
+        stage('Upload S3'){
+            steps{
+                dir("${env.WORKSPACE}"){
+                    sh 'zip -r scripts.zip ./scripts appspec.yml'
+                    withAWS(region: "ap-northeast-2", credentials: "${AWS_CREDENTIAL_NAME}"){
+                        s3Upload(file: "scripts.zip", bucket: "std05-app-bucket")
+                    }
+                    sh 'rm -rf scripts.zip'
+                }
+            }
+        }
     }
 }
