@@ -68,7 +68,7 @@ pipeline{
                     sh '''
                     aws deploy create-deployment --application-name std05-exercise \
                     --deployment-config-name CodeDeployDefault.OneAtATime \
-                    --deployment-group-name std05-was-${BUILD_NUMBER} \
+                    --deployment-group-name std05-exercise-${BUILD_NUMBER} \
                     --s3-location bucket=std05-app-bucket,bundleType=zip,key=scripts.zip
                     '''
                     sleep(10)
