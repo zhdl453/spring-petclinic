@@ -59,14 +59,14 @@ pipeline{
                 withAWS(region: "ap-northeast-2", credentials: "${AWS_CREDENTIAL_NAME}"){
                     sh'''
                     aws deploy create-deployment-group \
-                    --application-name std05-was-instance \
+                    --application-name std05-exercise \
                     --auto-scaling-groups std05-was-asg \
-                    --deployment-group-name std05-was-${BUILD_NUMBER} \
+                    --deployment-group-name std05-exercise-${BUILD_NUMBER} \
                     --deployment-config-name CodeDeployDefault.OneAtATime \
                     --service-role-arn arn:aws:iam::491085389788:role/std05-codedeploy-service-role \
                     '''
                     sh '''
-                    aws deploy create-deployment --application-name std05-was-instance \
+                    aws deploy create-deployment --application-name std05-exercise \
                     --deployment-config-name CodeDeployDefault.OneAtATime \
                     --deployment-group-name std05-was-${BUILD_NUMBER} \
                     --s3-location bucket=std05-app-bucket,bundleType=zip,key=scripts.zip
